@@ -3,15 +3,14 @@ import requests
 
 
 class APIValues():
-    def __init__(self):
-        self.main_pets_url = "http://158.160.56.133/api/pet/"
+    def __init__(self, num_link, num_page):
         self.main_api_url = "http://158.160.56.133/api/"
         self.all_api_links = []
-        self.all_pets = []
-        self.all_species = []
-        self.all_breeds = []
-        self.all_genders = []
-        self.all_statuses = []
+        self.all_api_id = []
+        self.all_api_name = []
+        self.all_api_code = []
+        self.num_link = num_link
+        self.num_page = num_page
         self.pages = {"page": 1}
 
     def get_all_api_links(self):
@@ -24,14 +23,20 @@ class APIValues():
         print(self.all_api_links)
         # api_links[0]) pet links[1]) breed links[2]) status links[3]) species links[4]) gender
 
-    def get_api_values_to_list(self, num_link, num_page, all_list):
-        # using params adding all values from all pages link to proper list
+    def get_api_values_to_list(self):
         # number of pages taken from POSTMAN
         current_list = []
-        for i in range(1, num_page):
+        for i in range(1, self.num_page):
             self.pages["page"] = i
-            response = requests.get(self.all_api_links[num_link], params=self.pages)
+            response = requests.get(self.all_api_links[self.num_link], params=self.pages)
             current_list += response.json()["results"]
             current_list = sorted(current_list, key=lambda x: x["name"])
-        all_list = current_list
-        print(all_list)
+        for item in current_list:
+            self.all_api_id.append(item["id"])
+            self.all_api_name.append(item["name"])
+            self.all_api_code.append(item["code"])
+
+    def print_info(self):
+        print(self.all_api_id)
+        print(self.all_api_name)
+        print(self.all_api_code)
