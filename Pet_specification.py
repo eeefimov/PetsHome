@@ -1,10 +1,13 @@
 import json
+from typing import List, Any
+
 import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 
 class PetSpecification():
+
     def __init__(self, driver=None):
         if driver is not None:
             self.driver = webdriver.Firefox()
@@ -13,7 +16,7 @@ class PetSpecification():
         self.all_api_links = []
         self.pages = {"page": 1}
 
-        # these 3 lists collect data from api(Classes) and main page (filter section)
+        # these 3 lists are for collecting data from api(Classes) and main page (filter section)
         self.api_id_web_species = []
         self.api_name_web_breeds = []
         self.api_code_web_genders = []
@@ -35,6 +38,7 @@ class PetSpecification():
                 species_list.append(option.get_attribute("value"))
             species_list.append("next")
         self.driver.quit()
+
         # put values to the proper lists:
         current_list = self.api_id_web_species
         for items in species_list:
@@ -63,7 +67,7 @@ class PetSpecification():
             if isinstance(data[item], str) and data[item].startswith("http"):
                 self.all_api_links.append(data[item])
         return self.all_api_links
-        # api_links[0]) pet links[1]) breed links[2]) status links[3]) species links[4]) gender
+
 
     def get_api_values_to_list(self, n_link, n_page):
         # number of pages taken from POSTMAN
@@ -80,13 +84,11 @@ class PetSpecification():
             self.api_name_web_breeds.append(item["name"])
             self.api_code_web_genders.append(item["code"])
 
-    def get_unique_values(self):
-        unique_id = list(set(self.api_id_web_species))
-        unique_name = list(set(self.api_name_web_breeds))
-        unique_code = list(set(self.api_code_web_genders))
-        print(f"api id: {len(self.api_id_web_species)} - unique: {len(unique_id)}")
-        print(f"api name: {len(self.api_name_web_breeds)} - unique: {len(unique_name)}")
-        print(f"api code: {len(self.api_code_web_genders)} - unique: {len(unique_code)}")
+
+    def get_unique_values(self, val):
+        unique_id = val
+        return list(set(unique_id))
+
 
     def print_info(self):
         print(self.api_id_web_species)
