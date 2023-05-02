@@ -1,0 +1,41 @@
+from Pet_specification import PetSpecification
+from selenium import webdriver
+
+# Create classes for all pet parameters (without age) and class collecting values from webpage
+# Numbers in params taken from POSTMAN
+driver = webdriver.Firefox()
+
+web_values = PetSpecification(driver)
+web_values.values_from_page()
+web_values.print_page_values()
+web_values.get_unique_values()
+web_values.
+print("##################################################")
+api_breeds = PetSpecification()
+api_breeds.get_all_api_links()
+api_breeds.get_api_values_to_list(n_link=1, n_page=4)
+api_breeds.print_info()
+api_breeds.get_unique_values()
+print("##################################################")
+# ap.get_api_values_to_list(3, 6, ap.all_species)
+pet_species = PetSpecification()
+pet_species.get_all_api_links()
+pet_species.get_api_values_to_list(n_link=3, n_page=6)
+pet_species.print_info()
+print("##################################################")
+# ap.get_api_values_to_list(2, 2, ap.all_statuses)
+pet_statuses = PetSpecification()
+pet_statuses.get_all_api_links()
+pet_statuses.get_api_values_to_list(n_link=2, n_page=2)
+pet_statuses.print_info()
+print("##################################################")
+# ap.get_api_values_to_list(4, 3, ap.all_genders)
+pet_genders = PetSpecification()
+pet_genders.get_all_api_links()
+pet_genders.get_api_values_to_list(n_link=4, n_page=3)
+api_breeds.get_unique_values()
+print("##################################################")
+pet_species.get_unique_values()
+pet_statuses.get_unique_values()
+pet_genders.get_unique_values()
+print("##################################################")
