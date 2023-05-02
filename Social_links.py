@@ -23,4 +23,3 @@ class Social():
         self.driver.find_element(By.CSS_SELECTOR, ".telegram").click()
         self.social_links.append(self.driver.current_url)
         self.driver.close()
-        print(self.social_links)
