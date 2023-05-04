@@ -1,5 +1,4 @@
 import json
-from typing import List, Any
 
 import requests
 from selenium import webdriver
@@ -52,13 +51,7 @@ class PetSpecification():
             else:
                 current_list.append(items)
 
-    def print_page_values(self):
-        print(self.api_id_web_species, len(self.api_id_web_species))
-        print(self.api_name_web_breeds, len(self.api_name_web_breeds))
-        print(self.api_code_web_genders, len(self.api_code_web_genders))
-
     # get values from api ###################################
-
     def get_all_api_links(self):
         # get all api links to one list
         response = requests.get(self.main_api_url)
@@ -67,7 +60,6 @@ class PetSpecification():
             if isinstance(data[item], str) and data[item].startswith("http"):
                 self.all_api_links.append(data[item])
         return self.all_api_links
-
 
     def get_api_values_to_list(self, n_link, n_page):
         # number of pages taken from POSTMAN
@@ -84,13 +76,31 @@ class PetSpecification():
             self.api_name_web_breeds.append(item["name"])
             self.api_code_web_genders.append(item["code"])
 
-
     def get_unique_values(self, val):
         unique_id = val
         return list(set(unique_id))
-
 
     def print_info(self):
         print(self.api_id_web_species)
         print(self.api_name_web_breeds)
         print(self.api_code_web_genders)
+
+    def print_page_values(self):
+        print(self.api_id_web_species, len(self.api_id_web_species))
+        print(self.api_name_web_breeds, len(self.api_name_web_breeds))
+        print(self.api_code_web_genders, len(self.api_code_web_genders))
+
+    def post_values_api(self, link, name, code):
+        print(self.all_api_links)
+        params = {"name": name, "code": code}
+        response = requests.post(link, json=params)
+        print(response.text)
+        return response.status_code
+
+    def post_exist_value(self, link):
+        response = requests.get(link)
+        current = list(response.json()["results"])
+        exist_value = current[0]
+        params = {"name": exist_value["name"], "code": exist_value["code"], "id": exist_value["id"]}
+        response = requests.post(link, json=params)
+        return response.status_code
