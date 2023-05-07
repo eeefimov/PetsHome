@@ -1,6 +1,7 @@
-# PetsHome
-Testing site using requests and selenium lib.
-upd1: Add header links check
-upd2: Add checks social icon link, get values from sort page fields, get values from API sort (Species, Breed, Gender, Status).
-There are all ready BUGs in output print. Some values are not unique, some repeated, in API values much more the in the Page Sort fields. 
-Have to compare.
+# PetsHome TASK:
+Introduction This file contains a brief description of the website's functionality as well as requirements for the site's pages and tools.
+The website http://130.193.37.179/app/pets is designed for posting ads about homeless dogs.
+This site provides several free tools that allow:
+Pets page - provides information about homeless dogs and also tracks information about those pets that have found shelter.
+Important: the names of the pets may vary slightly, we will try to keep this file up to date, but if you notice any inaccuracies, please let the client know.
+Site Requirements: • The "About Us" page should contain information about the site itself. • The "Pets" page should have input fields: "Animal Type", "Breed", "Gender", "Age" - where information about the pet can be entered and a report on the available pets or pets that have found shelter can be obtained. There should also be a filter field "Sort by" in which the results of the received pets can be sorted by different categories (the actual site page should resemble the screenshot). • The "Contacts" page should contain information about how to contact us. • All pages described in this file also contain a "Find a pet" field, which searches for pets on the site. • All pages described in this file also contain social media links in the footer. • All tools should have user input validation, and if the user enters incorrect information, a clear and correct error message should be displayed (so that the user can understand what the problem is and change the data). • No errors should occur when opening any page of the site, and there should be no 5xx response codes from the server. • The number of bugs found on this site should not be less than 10 and should not exceed 20 if possible. • The number of checks on the site should not be less than 30 (taking into account all pages).
