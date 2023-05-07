@@ -9,13 +9,7 @@ class Sorting:
         self.sort_species = []
         self.sort_breeds = []
         self.sort_genders = []
-        #sort lists from api
-        self.sort_species_api = []
-        self.sort_breeds_api = []
-        self.sort_genders_api = []
         self.main_url = "http://158.160.56.133/app/pets"
-        self.api_url = "http://158.160.56.133/api"
-        pages = {"page1": "1", "page2": "2", "page3": "3", "page4": "4"}
 
     def teardown_method(self, method):
         self.driver.quit()
@@ -45,8 +39,11 @@ class Sorting:
                     break
             else:
                 current_list.append(items)
-        print(self.sort_species)
-        print(self.sort_breeds)
-        print(self.sort_genders)
+
+
+
+        print(self.sort_species, len(self.sort_species))
+        print(self.sort_breeds, len(self.sort_breeds))
+        print(self.sort_genders, len(self.sort_genders))
 
 

@@ -10,7 +10,7 @@ class Social():
     def teardown_method(self, method):
         self.driver.quit()
 
-    def s_links(self):
+    def social_icon_links(self):
     #checks rediraction of social icon links in footer part -> BUG_2:
     # there are no links in this section. Only icons.
         self.driver.get("http://158.160.56.133/app/pets/")
@@ -23,4 +23,4 @@ class Social():
         self.driver.find_element(By.CSS_SELECTOR, ".telegram").click()
         self.social_links.append(self.driver.current_url)
         self.driver.close()
-        print(self.social_links)
+        return self.social_links

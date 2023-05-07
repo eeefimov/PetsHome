@@ -9,8 +9,8 @@ class Header():
     def __init__(self):
         self.driver = webdriver.Firefox()
         self.header_links = []
-        self.header_responds = []
-        self.header_titles = []
+        self.header_responds = {}
+        self.header_titles = {}
 
     def teardown_method(self):
         self.driver.quit()
@@ -28,20 +28,20 @@ class Header():
         self.header_links.append(self.driver.current_url)
         self.driver.close()
 
-    def h_responses_titles(self):
+    def h_responds_titles(self):
     # check responeds header links -> all links have 200 status code
         for hlink in self.header_links:
             h_url = str(hlink)
-            self.header_responds.append(f"{h_url} - {requests.get(h_url)}")
+            self.header_responds[h_url] = requests.get(h_url)
             response = requests.get(h_url)
 
     # check titles of header pages -> BUG_1:
     # all pages have the same title
             soup = BeautifulSoup(response.content, "html.parser")
             title = soup.title.string
-            self.header_titles.append(f"{h_url} - {title}")
-            print(self.header_links)
-            print(self.header_responds)
-            print(self.header_titles)
+            self.header_titles[h_url] = [title]
+            # print(self.header_links)
+        print(self.header_responds)
+
 
 

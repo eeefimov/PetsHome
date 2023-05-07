@@ -1,0 +1,465 @@
+{
+	"info": {
+		"_postman_id": "800e7bc1-502d-498b-ac04-fa78980f8355",
+		"name": "PET_HOME",
+		"description": "```\nHTTP 200 OKAllow: GET, HEAD, OPTIONS\nContent-Type: application/json\nVary: Accept\n\n{\n    \"pet\": \"http://158.160.56.133/api/pet/\",\n    \"breed\": \"http://158.160.56.133/api/breed/\",\n    \"pet_status\": \"http://158.160.56.133/api/pet_status/\",\n    \"species\": \"http://158.160.56.133/api/species/\",\n    \"gender\": \"http://158.160.56.133/api/gender/\",\n    \"owner\": \"http://158.160.56.133/api/owner/\",\n    \"pet_shelter_req\": \"http://158.160.56.133/api/pet_shelter_req/\",\n    \"registration\": \"http://158.160.56.133/api/registration/\"\n}\n```",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25665242"
+	},
+	"item": [
+		{
+			"name": "Pets",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{main_url}}/app/pets",
+					"host": [
+						"{{main_url}}"
+					],
+					"path": [
+						"app",
+						"pets"
+					]
+				},
+				"description": "check 200 status code main Pets page"
+			},
+			"response": []
+		},
+		{
+			"name": "About",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{main_url}}/app/about",
+					"host": [
+						"{{main_url}}"
+					],
+					"path": [
+						"app",
+						"about"
+					]
+				},
+				"description": "check 200 status About page"
+			},
+			"response": []
+		},
+		{
+			"name": "Contact",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{main_url}}/app/contact",
+					"host": [
+						"{{main_url}}"
+					],
+					"path": [
+						"app",
+						"contact"
+					]
+				},
+				"description": "check 200 status code Contact page"
+			},
+			"response": []
+		},
+		{
+			"name": "BREED list GET(Bugs in Documentation)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response is JSON\", function () {",
+							"    pm.response.to.be.json;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{main_url}}/api/breed/?page=1",
+					"host": [
+						"{{main_url}}"
+					],
+					"path": [
+						"api",
+						"breed",
+						""
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				},
+				"description": "Check list of Breeds.\n\n[http://158.160.56.133/api/breed/?page=1](http://158.160.56.133/api/breed/?page=1)\n\n**BUG 1:** same breed name with different code (**siberian cat)**:\n\n\"id\": \"c8455311-4159-4324-b248-611555a3550d\", \"name\": \"**cибирская кошка**\", \"code\": \"**sibir_cat**\"\n\n\"id\": \"ce8e2940-9a60-4de7-85f7-7e49759fa081\", \"name\": \"**cибирская кошка**\", \"code\": \"**siberian_cat**\"\n\n**BUG 2:** repeated breed name and code with different id (**Indian**):\n\n\"id\": \"40e4e2d8-7287-4140-9664-514cc047c6bd\", \"name\": \"**индийский**\", \"code\": \"**indian**\"\n\n\"id\": \"23a6859a-42cc-48c4-953a-b13ba8be8292\", \"name\": \"**индийский**\", \"code\": \"**indian**\"\n\n[http://158.160.56.133/api/breed/?page=](http://158.160.56.133/api/breed/?page=1)2\n\n**BUG 3:** repeated breed name and code with different id (**Siberian_cat**):\n\n\"id\": \"976df73f-aa7e-436d-8898-a24dc6f3c499\", \"name\": \"сибирская кошка\", \"code\": \"**siberian_cat**\"\n\n**BUG 4:** same breed name and code with different id (**pitbull**):\n\n\"id\": \"ce8e2940-9a60-4de7-85f7-7e49759fa080\", **\"name\": \"питбуль\", \"code\": \"pitbull\"** \"id\": \"44b902cd-3bd8-4196-a383-8dbd014081d2\", **\"name\": \"питбуль\", \"code\": \"pitbull\"**\n\n**BUG 5:** inappropriate breed name to code (**pitbull**):\n\n\"id\": \"976df73f-aa7e-436d-8898-a24dc6f3c498\", **\"name\": \"розовый\", \"code\": \"pitbull\"**\n\n[http://158.160.56.133/api/breed/?page=](http://158.160.56.133/api/breed/?page=1)3"
+			},
+			"response": []
+		},
+		{
+			"name": "SPECIES list GET (Bugs in Documentation)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response is JSON\", function () {",
+							"    pm.response.to.be.json;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{main_url}}/api/species?page=1",
+					"host": [
+						"{{main_url}}"
+					],
+					"path": [
+						"api",
+						"species"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				},
+				"description": "Check list of Species.\n\n[http://158.160.56.133/api/species/?page=1](https://desktop.postman.com/?desktopVersion=10.13.0&userId=25665242&teamId=0)\n\n**BUG 6:** inappropriate breed name to code (**Ger**):\n\n\"id\": \"4bf1bda4-822e-4c13-ba14-d36bc6915f8c\", **\"name\": \"Герой\", \"code\": \"ger\"**\n\n**BUG 7:** Invalid species code to name **(monkey)**\n\n\"id\": \"a35a4079-b00f-4765-ba2e-203ad148bb44\", **\"name\": \"Обезьянка\", \"code\": \"123\"**\n\n**BUG 8:** repeated breed name and code with different id (**Monkey**):\n\n\"id\": \"a35a4079-b00f-4765-ba2e-203ad148bb44\", **\"name\": \"Обезьянка\", \"code\": \"123\"** \"id\": \"048b9c10-db51-4621-981c-6cfdd57dc6aa\", **\"name\": \"Обезьянка\", \"code\": \"123\"**\n\n**BUG 9:** repeated breed name and code with different id (**Elephant**):\n\n\"id\": \"618fe547-0574-4c04-8795-7e594e088c3e\", \"**name\": \"слон\", \"code\": \"elephant**\" \"id\": \"618fe547-0574-4c04-8795-7e594e088c4e\", \"**name\": \"слон\", \"code\": \"elephant**\"\n\n**BUG 10:** repeated breed name and code with different id (**Dog**):\n\n\"id\": \"4bf1bda4-822e-4c13-ba14-d36bc6915f8d\", \"**name\": \"собака\", \"code\": \"dog**\"\n\n\"id\": \"718fe547-0574-4c04-8795-7e594e088c4e\", **\"name\": \"собака\", \"code\": \"dog\"**\n\n\"id\": \"048b9c10-db51-4621-981c-6cfdd57dc6ac\", **\"name\": \"собака\", \"code\": \"dog\"**\n\n\"id\": \"a9297832-56e5-4949-9ac6-88b7973e1807\", **\"name\": \"Собака\", \"code\": \"dog\"**([http://158.160.56.133/api/species/?page=](https://desktop.postman.com/?desktopVersion=10.13.0&userId=25665242&teamId=0)3)\n\n[http://158.160.56.133/api/species/?page=](https://desktop.postman.com/?desktopVersion=10.13.0&userId=25665242&teamId=0)**3**\n\n**BUG 11:** repeated breed name and code with different id (**Hamster**):\n\n\"id\": \"afe22dc7-01df-4f32-a104-96f9d6eaab46\", **\"name\": \"Хомяк\", \"code\": \"hamster\"** \"id\"**:** \"3f6c79a3-491e-4765-b97a-65788cc40215\", **\"name\": \"Хомяк\", \"code\": \"hamster\"** \"id\": \"9e640932-69ef-45a0-a247-670b51e27e4c\", \"name\": **\"Хомяк\", \"code\": \"hamster\"** \"id\": \"75b9a87f-a77e-4299-afaf-184649a9265b\", **\"name\": \"Хомяк\", \"code\": \"hamster\"** \"id\": \"bc48bb9a-768d-4584-a2a0-ce34c71f27d7\", \"name\": **\"Хомяк\", \"code\": \"hamster\"**"
+			},
+			"response": []
+		},
+		{
+			"name": "PET STATUS list GET (Bugs in Documentation)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response is JSON\", function () {",
+							"    pm.response.to.be.json;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{main_url}}/api/pet_status",
+					"host": [
+						"{{main_url}}"
+					],
+					"path": [
+						"api",
+						"pet_status"
+					]
+				},
+				"description": "Check list of Pet's status.\n\n[http://158.160.56.133/api/](https://desktop.postman.com/?desktopVersion=10.13.0&userId=25665242&teamId=0)pet_status\n\n**BUG 12:** repeated status code to different name (**wait_home**):\n\n\"id\": \"076ea473-532c-443e-b7ee-f60b060d6bb2\", \"name\": **\"хотят забрать\"**, \"code\": **\"wait_home\"**\n\n\"id\": \"056ea473-532c-443e-b7ee-f60b060d6bb2\", \"name\": \"**хотят отдать**\", \"code\": **\"wait_home\"**"
+			},
+			"response": []
+		},
+		{
+			"name": "PET GENDER list GET (Bugs in Documentation)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response is JSON\", function () {",
+							"    pm.response.to.be.json;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{main_url}}/api/gender?page=2",
+					"host": [
+						"{{main_url}}"
+					],
+					"path": [
+						"api",
+						"gender"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				},
+				"description": "Check list of Gender'.\n\n[http://158.160.56.133/api/](https://desktop.postman.com/?desktopVersion=10.13.0&userId=25665242&teamId=0)gender\n\n**BUG 13:** Invalid gender name and code (**f - 4455**):\n\n\"id\": \"6b8a3721-457b-4ce8-ae29-2fddd71a2d7b\", **\"name\": \"f\", \"code\": \"4455\"**\n\n**BUG 14:** Invalid gender name and code (**kuki - 4456**):\n\n\"id\": \"6b8a3721-457b-4ce8-ae29-2fddd71a2d7c\", **\"name\": \"kuki\", \"code\": \"4456\"**\n\n**BUG 15:** Invalid gender name and code (**mail - wait_home**):\n\n\"id\": \"976df73f-aa7e-436d-8898-a24dc6f3c498\", **\"name\": \"кабель\", \"code\": \"wait_home\"**\n\n**BUG 16:** repeated gender name and status code with differrent id (**boy - m**):\n\n\"id\": \"0045491e-e44e-410d-8efa-4168e3b41721\", **\"name\": \"мальчик\", \"code\": \"m\"** \"id\": \"9b71bc30-a5b0-479e-9f70-07af9a388fdf\", **\"name\": \"мальчик\", \"code\": \"m\"**\n\n{{main_url}}/api/gender?page=2\n\n**BUG 17:** repeated gender name and status code with differrent id (**NotSpecified**):\n\n\"id\": \"c29d7dd5-5956-45d7-a082-47d5930ed015\", **\"name\": \"Не указан\", \"code\": \"NotSpecified\"**\n\n\"id\": \"2c98de2a-a089-4bb3-8acb-7ab01bff3a98\", **\"name\": \"Не указан\", \"code\": \"NotSpecified\"**\n\n\"id\": \"73d8b136-3f5a-4fb7-b489-54d98c2e2f05\", **\"name\": \"Не указан\", \"code\": \"NotSpecified\"**\n\n\"id\": \"81bc3665-0818-4082-9d17-fcc2405416d9\", **\"name\": \"Не указан\", \"code\": \"NotSpecified\"**\n\n**BUG 18:** inappropriate breed name to code (**Parket**):\n\n\"id\": \"18586156-da5c-427a-849f-d22183fb9c55\", \"**name\": \"паркет\", \"code\": \"parket**\""
+			},
+			"response": []
+		},
+		{
+			"name": "REGISTRATION empty fields",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response is JSON\", function () {",
+							"    pm.response.to.be.json;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{main_url}}/api/pet_shelter_req/",
+					"host": [
+						"{{main_url}}"
+					],
+					"path": [
+						"api",
+						"pet_shelter_req",
+						""
+					],
+					"query": [
+						{
+							"key": "firstname",
+							"value": "qwe",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "REGISTRATION valid fields",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response is JSON\", function () {",
+							"    pm.response.to.be.json;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "phone_num",
+							"value": "+79159976845",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "qwe@qwe.qwe",
+							"type": "text"
+						},
+						{
+							"key": "firstname",
+							"value": "qwe",
+							"type": "text"
+						},
+						{
+							"key": "middlename",
+							"value": "asd",
+							"type": "text"
+						},
+						{
+							"key": "lastname",
+							"value": "zxc",
+							"type": "text"
+						},
+						{
+							"key": "comment",
+							"value": "qwe asd zxc",
+							"type": "text"
+						},
+						{
+							"key": "pet",
+							"value": "70a41546-3381-4d13-be73-3096ef0cbe0b",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{main_url}}/api/pet_shelter_req/",
+					"host": [
+						"{{main_url}}"
+					],
+					"path": [
+						"api",
+						"pet_shelter_req",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BREED post NEW one",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "\"CORGI\"",
+							"type": "text"
+						},
+						{
+							"key": "code",
+							"value": "\"Corgi\"",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{main_url}}/api/breed/",
+					"host": [
+						"{{main_url}}"
+					],
+					"path": [
+						"api",
+						"breed",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "main_url",
+			"value": "http://158.160.56.133",
+			"type": "string"
+		},
+		{
+			"key": "page",
+			"value": "1"
+		}
+	]
+}
